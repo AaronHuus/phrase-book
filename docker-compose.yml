@@ -4,10 +4,22 @@ services:
   phrase-book:
     build: .
     container_name: phrase-book
-#    environment:
-#      - POSTGRES_HOST=
-#      - POSTGRES_PASSWORD=
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_USER: phrasebook
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: PhraseBook
     volumes:
       - "./etc/phrase-book-config.ini:/opt/phrase-book-0.1/etc/phrase-book-config.ini"
     ports:
       - "8000:8000" # HTTP port
+
+  db:
+    image: postgres:11.2-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: phrasebook
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: PhraseBook
+    ports:
+    - "5432:5432" # Postgres Port

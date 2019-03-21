@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify
 from werkzeug.exceptions import NotFound
 
 from phrase_book.api.books import get_book_by_id
-from phrase_book.objects.book import Book
+from phrase_book.models.book import Book
 
 phrases_blueprint = Blueprint('phrases', __name__)
 

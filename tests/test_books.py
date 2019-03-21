@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from phrase_book.objects.book import Book
+from phrase_book.models.book import Book
 
 
 class TestBooks(TestCase):

@@ -1,7 +1,7 @@
 from unittest import TestCase
 from uuid import uuid4
 
-from phrase_book.objects.phrase import Phrase
+from phrase_book.models.phrase import Phrase
 
 
 class TestPhrases(TestCase):

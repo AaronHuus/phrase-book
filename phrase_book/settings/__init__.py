@@ -5,10 +5,12 @@ from phrase_book.settings.constants import TRUTHY_INPUT
 from phrase_book.utils.util import camel_case_to_snake_case
 
 DATABASE = 'Database'
+DISPLAY_NAME = 'display_name'
 
 HOST = 'Host'
 
 PASSWORD = 'Password'
+PORT = 'Port'
 POSTGRES_SECTION = 'Postgres'
 
 USER = 'User'

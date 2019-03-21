@@ -4,11 +4,14 @@ import os
 from configparser import ConfigParser
 
 from flask import Flask, jsonify
+from flask_sqlalchemy import SQLAlchemy
 
-from phrase_book.settings.constants import PHRASE_BOOK_SETTINGS
+from phrase_book.settings.constants import PHRASE_BOOK_SETTINGS, SQLALCHEMY_TRACK_MODIFICATIONS
 from phrase_book.settings.settings import Settings
 
 # Set up Logging
+from phrase_book.utils.phrase_book_json_encoder import PhraseBookJSONEncoder
+
 if not os.path.isdir('logs'):
     os.mkdir('logs')
 
@@ -33,19 +36,23 @@ config_parser.read(config_path)
 
 settings.init_from_config(config_parser)
 
-# Set up Flask App
-from phrase_book.api.books import books_blueprint
-from phrase_book.api.phrases import phrases_blueprint
-
 app = Flask(__name__)
-# app.register_blueprint(display_blueprint, url_prefix='/')
+app.url_map.strict_slashes = False
+app.json_encoder = PhraseBookJSONEncoder
+settings.load_into_app_config(app.config)
+app.config[SQLALCHEMY_TRACK_MODIFICATIONS] = False
+db = SQLAlchemy(app)
+
+# Set up Flask App
+from phrase_book.api.phrases import phrases_blueprint
+from phrase_book.api.books import books_blueprint
 app.register_blueprint(books_blueprint, url_prefix='/books')
 app.register_blueprint(phrases_blueprint, url_prefix='/books/<book_id>')
-
 
 ###############
 # Base Routes
 ###############
+
 
 @app.route('/version.json', methods=['GET'])
 def version():

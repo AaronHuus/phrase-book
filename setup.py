@@ -44,7 +44,11 @@ setup(name='phrase_book',
       test_suite="tests",
       install_requires=[
           'GitPython==2.1.11',
-          'Flask==1.0.2'
+          'Flask==1.0.2',
+          'Flask-Migrate==2.4.0',
+          'Flask-SQLAlchemy==2.3.2',
+          'Flask-Script==2.0.6',
+          'psycopg2-binary==2.7.7'
       ],
       cmdclass={
           'version': VersionCommand,
