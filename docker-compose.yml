@@ -1,0 +1,13 @@
+version: '2.4'
+
+services:
+  phrase-book:
+    build: .
+    container_name: phrase-book
+#    environment:
+#      - POSTGRES_HOST=
+#      - POSTGRES_PASSWORD=
+    volumes:
+      - "./etc/phrase-book-config.ini:/opt/phrase-book-0.1/etc/phrase-book-config.ini"
+    ports:
+      - "8000:8000" # HTTP port

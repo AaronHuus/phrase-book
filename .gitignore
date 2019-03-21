@@ -1,0 +1,6 @@
+version.json
+__pycache__
+.idea
+*.egg-info
+*.log
+logs/*

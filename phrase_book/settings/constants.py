@@ -1,0 +1,3 @@
+PHRASE_BOOK_SETTINGS = 'PHRASE_BOOK_SETTINGS'
+
+TRUTHY_INPUT = ['y', 'yes', '1', 'true']
