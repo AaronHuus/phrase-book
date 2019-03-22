@@ -40,6 +40,9 @@ def get_book(book_id: str):
 @books_blueprint.route('/<book_id>', methods=['PUT'])
 def update_a_book(book_id: str):
     body = json.loads(request.data)
+    book = Book.query.get(book_id)
+    if not book:
+        raise NotFound(f'Book with id: {book_id} was not found')
     db.session.query(Book).filter(Book.id == book_id).update(body)
     db.session.commit()
     return jsonify(Book.query.get(book_id))

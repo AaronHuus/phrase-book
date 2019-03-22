@@ -13,6 +13,8 @@ PASSWORD = 'Password'
 PORT = 'Port'
 POSTGRES_SECTION = 'Postgres'
 
+SOURCE_PHRASE = 'source_phrase'
+
 USER = 'User'
 
 

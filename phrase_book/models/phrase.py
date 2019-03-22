@@ -22,39 +22,14 @@ class Phrase(MetaDataMixIn, db.Model):
         self.id = uuid4()
         self.book_id = book_id
         self.source_phrase = source_phrase
-        self.source_phrase_language = None
+        self.source_phrase_language = 'en'
         self.translations: Dict = {}
 
     def to_json(self):
-        property_names = [p for p in dir(Phrase) if isinstance(getattr(Phrase, p), property)]
+        property_names = Phrase.__table__.columns.keys()
         configs = {}
         for prop in [p for p in property_names]:
             value = getattr(self, prop)
             configs[prop] = value
 
         return configs
-
-    # Properties
-    # @property
-    # def id(self) -> str:
-    #     return str(self._phrase_id)
-    #
-    # @property
-    # def book_id(self) -> str:
-    #     return self._book_id
-    #
-    # @book_id.setter
-    # def book_id(self, value):
-    #     self._book_id = value
-    #
-    # @property
-    # def source_phrase(self) -> str:
-    #     return self._source_phrase
-    #
-    # @property
-    # def source_phrase_language(self) -> str:
-    #     return self._source_phrase_language
-    #
-    # @property
-    # def translations(self) -> Dict:
-    #     return self._translations

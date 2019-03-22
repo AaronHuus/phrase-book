@@ -47,7 +47,7 @@ db = SQLAlchemy(app)
 from phrase_book.api.phrases import phrases_blueprint
 from phrase_book.api.books import books_blueprint
 app.register_blueprint(books_blueprint, url_prefix='/books')
-app.register_blueprint(phrases_blueprint, url_prefix='/books/<book_id>')
+app.register_blueprint(phrases_blueprint, url_prefix='/books/<book_id>/phrases')
 
 ###############
 # Base Routes
