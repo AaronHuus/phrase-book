@@ -43,9 +43,11 @@ def update_a_phrase(book_id: str, phrase_id: str):
     phrase = Phrase.query.get(phrase_id)
     if not phrase:
         raise NotFound(f'Phrase with id: {phrase_id} of book with id: {phrase_id} was not found')
-    db.session.query(Phrase).filter(Phrase.id == phrase_id).update(body)
-    db.session.commit()
-    return jsonify(Phrase.query.get(phrase_id))
+    if phrase.source_phrase != body[SOURCE_PHRASE]:
+        phrase.source_phrase = body[SOURCE_PHRASE]
+        db.session.add(phrase)
+        db.session.commit()
+    return jsonify(phrase)
 
 
 # Delete a Phrase
