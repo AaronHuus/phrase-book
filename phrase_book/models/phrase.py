@@ -6,12 +6,15 @@ from google.cloud import translate
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from phrase_book import db
+from phrase_book import db, app
 from phrase_book.models.metadata_mixin import MetaDataMixIn
 from phrase_book.settings.constants import SUPPORTED_LANGUAGES
 
 logger = logging.getLogger(__name__)
-translate_client = translate.Client()
+
+if not app.testing:
+    translate_client = translate.Client()
+
 
 class Phrase(MetaDataMixIn, db.Model):
     __tablename__ = 'phrases'
@@ -21,7 +24,6 @@ class Phrase(MetaDataMixIn, db.Model):
     _source_phrase = db.Column('source_phrase', db.String, nullable=False)
     source_phrase_language = db.Column(db.String, nullable=False)
     translations = db.Column(JSONB, nullable=False)
-
 
     def __init__(self, source_phrase: str, book_id: str):
         self.id = uuid4()
