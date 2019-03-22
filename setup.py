@@ -43,6 +43,7 @@ setup(name='phrase_book',
       url='https://github.com/AaronHuus/phrase-book',
       test_suite="tests",
       install_requires=[
+          'Authlib==0.10',
           'GitPython==2.1.11',
           'google-cloud-translate==1.3.3',
           'Flask==1.0.2',

@@ -3,7 +3,7 @@ import json
 from flask import Blueprint, jsonify, request
 from werkzeug.exceptions import NotFound
 
-from phrase_book import db
+from phrase_book import db, require_oauth
 from phrase_book.models.phrase import Phrase
 from phrase_book.settings import SOURCE_PHRASE
 
@@ -52,6 +52,7 @@ def update_a_phrase(book_id: str, phrase_id: str):
 
 # Delete a Phrase
 @phrases_blueprint.route('/<phrase_id>', methods=['DELETE'])
+@require_oauth('phrases.delete')
 def delete_a_phrase(book_id: str, phrase_id: str):
     phrase = Phrase.query.get(phrase_id)
     if not phrase:
