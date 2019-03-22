@@ -12,6 +12,8 @@ phrases_blueprint = Blueprint('phrases', __name__)
 
 # Create a Phrase
 @phrases_blueprint.route('/', methods=['POST'])
+@require_oauth('phrase.edit')
+# @require_oauth('phrase.create')
 def create_phrases(book_id: str):
     body = json.loads(request.data)
     phrase = Phrase(body[SOURCE_PHRASE], book_id)
@@ -22,6 +24,7 @@ def create_phrases(book_id: str):
 
 # Get All Phrase
 @phrases_blueprint.route('/', methods=['GET'])
+@require_oauth('phrase.read')
 def phrases(book_id: str):
     all_phrases = Phrase.query.filter_by(book_id=book_id).all()
     return jsonify(all_phrases)
@@ -29,6 +32,7 @@ def phrases(book_id: str):
 
 # Get one Phrase
 @phrases_blueprint.route('/<phrase_id>', methods=['GET'])
+@require_oauth('phrase.read')
 def get_phrase(book_id: str, phrase_id: str):
     phrase = Phrase.query.get(phrase_id)
     if not phrase:
@@ -38,6 +42,7 @@ def get_phrase(book_id: str, phrase_id: str):
 
 # Update a Phrase
 @phrases_blueprint.route('/<phrase_id>', methods=['PUT'])
+@require_oauth('phrase.edit')
 def update_a_phrase(book_id: str, phrase_id: str):
     body = json.loads(request.data)
     phrase = Phrase.query.get(phrase_id)
@@ -52,7 +57,7 @@ def update_a_phrase(book_id: str, phrase_id: str):
 
 # Delete a Phrase
 @phrases_blueprint.route('/<phrase_id>', methods=['DELETE'])
-@require_oauth('phrases.delete')
+@require_oauth('phrase.edit')
 def delete_a_phrase(book_id: str, phrase_id: str):
     phrase = Phrase.query.get(phrase_id)
     if not phrase:
