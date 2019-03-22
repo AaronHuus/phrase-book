@@ -19,9 +19,11 @@ class Book(MetaDataMixIn, db.Model):
     def __init__(self, display_name: str):
         self.id = uuid4()
         self.display_name: str = display_name
+        self.phrases: List[Phrase] = []
 
     def to_json(self):
         property_names = Book.__table__.columns.keys()
+        property_names.append('phrases')
         configs = {}
         for prop in [p for p in property_names if p.upper() not in []]:
             value = getattr(self, prop)

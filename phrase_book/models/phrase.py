@@ -19,11 +19,11 @@ class Phrase(MetaDataMixIn, db.Model):
     translations = db.Column(JSONB, nullable=False)
 
     def __init__(self, source_phrase: str, book_id: str):
-        self._phrase_id = uuid4()
-        self._book_id = book_id
-        self._source_phrase = source_phrase
-        self._source_phrase_language = None
-        self._translations: Dict = {}
+        self.id = uuid4()
+        self.book_id = book_id
+        self.source_phrase = source_phrase
+        self.source_phrase_language = None
+        self.translations: Dict = {}
 
     def to_json(self):
         property_names = [p for p in dir(Phrase) if isinstance(getattr(Phrase, p), property)]
