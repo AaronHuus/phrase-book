@@ -1,4 +1,5 @@
 version.json
+private.json
 __pycache__
 .idea
 *.egg-info
