@@ -12,7 +12,7 @@ books_blueprint = Blueprint('books', __name__)
 
 # Create a Book
 @books_blueprint.route('/', methods=['POST'])
-@require_oauth('book.create')
+@require_oauth('book.edit')
 def create_books():
     body = json.loads(request.data)
     book = Book(body[DISPLAY_NAME])
